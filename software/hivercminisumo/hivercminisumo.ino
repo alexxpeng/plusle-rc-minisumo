@@ -24,13 +24,17 @@ bool moveRight = false;
 #define CHARACTERISTIC_UUID_RX "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 #define CHARACTERISTIC_UUID_TX "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
  
-// Pins for motor control
-const int BI1 = 18;  // Motor B direction pin 1
-const int BI2 = 19;  // Motor B direction pin 2
+// Name of each connection, change this to be unique per participant
+#define BLENAME "magnoliarobot"
+
+// Pins for motor control, swap as needed depending on how they connected their motor
+const int BI1 = 19;  // Motor B direction pin 1
+const int BI2 = 18;  // Motor B direction pin 2
 const int PWMB = 21; // Motor B PWM pin (D4)
-const int AI1 = 25;  // Motor A direction pin 1
-const int AI2 = 26;  // Motor A direction pin 2
+const int AI1 = 26;  // Motor A direction pin 1
+const int AI2 = 25;  // Motor A direction pin 2
 const int PWMA = 27; // Motor A PWM pin (D2)
+
 
 void controlMotors() {
   if (moveLeft) {
@@ -107,7 +111,7 @@ void setup() {
   pinMode(AI2, OUTPUT);
   pinMode(PWMA, OUTPUT);
 
-  BLEDevice::init("Alex Plusle ESP32"); // give the BLE device a name
+  BLEDevice::init(BLENAME); // give the BLE device a name
   
   BLEServer *pServer = BLEDevice::createServer(); // create BLE server
   pServer->setCallbacks(new MyServerCallbacks());
